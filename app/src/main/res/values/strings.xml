@@ -8,4 +8,9 @@
     <string name="galleryText">Gallery</string>
     <string name="cameraText">Camera</string>
     <string name="hintDeliveryAddress">Delivery Address</string>
+    <string name="messageMissingName">Insert a name</string>
+    <string name="messageMissingPhoto">Insert a photo</string>
+    <string name="messageMissingMail">Insert a Mail</string>
+    <string name="messageMissingDescription">Insert a description</string>
+    <string name="messageMissingAddress">Insert an address</string>
 </resources>

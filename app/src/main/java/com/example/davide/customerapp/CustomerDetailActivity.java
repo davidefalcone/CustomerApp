@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -33,6 +34,8 @@ public class CustomerDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_detail);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         tagCustomer = "Customer";
         tagPreferences = "preferences";
@@ -71,6 +74,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
         customerMail.setText(customer.getMail());
         customerDescription.setText(customer.getDescription());
         customerDeliveryAddress.setText(customer.getDeliveryAddress());
+        customerImage.setImageBitmap(Customer.decodeImage(customer.getEncodedImage()));
 
     }
 

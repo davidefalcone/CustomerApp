@@ -1,61 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EditCustomerActivity">
-    <ImageView
-        android:id="@+id/editImage"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/editimage" />
+        android:layout_height="match_parent"
+        tools:context=".EditCustomerActivity">
 
-    <EditText
-        android:id="@+id/editName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="false"
-        android:layout_below="@id/editImage"
-        android:layout_margin="15dp"
-        android:hint="@string/hintName"
-        android:inputType="text"
-        />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <EditText
-        android:id="@+id/editEmail"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentStart="false"
-        android:layout_marginBottom="174dp"
-        android:layout_below="@id/editName"
-        android:hint="@string/hintEmail"
-        android:layout_margin="15dp"
-        android:inputType="textEmailAddress" />
+        <ImageView
+            android:id="@+id/editImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:layout_below="@id/toolbar"
+            app:srcCompat="@drawable/editimage" />
 
-    <EditText
-        android:id="@+id/editDescription"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentStart="false"
-        android:layout_below="@id/editEmail"
-        android:layout_margin="15dp"
-        android:hint="@string/hintDescription"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:layout_below="@id/editImage"
+            android:layout_margin="15dp"
+            android:hint="@string/hintName"
+            android:inputType="text"
+            />
 
-    <EditText
-        android:id="@+id/editDeliveryAddress"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentStart="false"
-        android:layout_below="@id/editDescription"
-        android:layout_margin="15dp"
-        android:hint="@string/hintDeliveryAddress"
-        android:inputType="text" />
-</RelativeLayout>
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentStart="false"
+            android:layout_marginBottom="174dp"
+            android:layout_below="@id/editName"
+            android:hint="@string/hintEmail"
+            android:layout_margin="15dp"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editDescription"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentStart="false"
+            android:layout_below="@id/editEmail"
+            android:layout_margin="15dp"
+            android:hint="@string/hintDescription"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/editDeliveryAddress"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentStart="false"
+            android:layout_below="@id/editDescription"
+            android:layout_margin="15dp"
+            android:hint="@string/hintDeliveryAddress"
+            android:inputType="text" />
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

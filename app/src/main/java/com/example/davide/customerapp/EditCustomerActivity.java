@@ -2,11 +2,14 @@ package com.example.davide.customerapp;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.provider.Telephony;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import com.example.davide.customerapp.DataModel.*;
 import com.google.gson.Gson;
-
 import android.content.Intent;
 import android.widget.Toast;
-
 import java.io.IOException;
 
 
@@ -44,6 +45,8 @@ public class EditCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_customer);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         tagDialog = "dialog";
         tagCustomer = "Customer";
@@ -61,7 +64,6 @@ public class EditCustomerActivity extends AppCompatActivity {
         customer = retrieveCustomerData();
         if(customer != null)
             setCustomerData(customer);
-
     }
 
     @Override
@@ -75,14 +77,17 @@ public class EditCustomerActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        saveCustomer();
+        if(gapsFilled()){
+            saveCustomer();
 
-        //this code checks if this is the first time the activity is showed:
-        if(getIntent().getExtras() == null)
-            //it's not the first time so this activity has een called by startactivityforresult method
-            goToDetailActivity();
-        //it's the first time so it is needed only to pass to te detail activity
-        else backToDetail();
+            //this code checks if this is the first time the activity is showed:
+            if(getIntent().getExtras() == null)
+                //it's not the first time so this activity has een called by startactivityforresult method
+                goToDetailActivity();
+                //it's the first time so it is needed only to pass to te detail activity
+            else backToDetail();
+        }
+
         return true;
 
     }
@@ -94,6 +99,17 @@ public class EditCustomerActivity extends AppCompatActivity {
         String description = editDescription.getText().toString();
         String deliveryAddress = editDeliveryAddress.getText().toString();
 
+        /*
+        There are two main ways to store the customer's image:
+        1)Translate it in Base64 String and then store the resulting
+        string in SharedPreferences file.
+        2)Store the image on the device memory and store
+        its path in the SharedPreference file.
+
+        In this case, the first method has been choosen.
+
+         */
+        String encodedImage = Customer.encodeImage(editImage.getDrawable());
 
         Customer customer = Customer.getIstance();
 
@@ -101,6 +117,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         customer.setMail(mail);
         customer.setDescription(description);
         customer.setDeliveryAddress(deliveryAddress);
+        customer.setEncodedImage(encodedImage);
 
         preferences = getSharedPreferences(tagPreferences, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -136,7 +153,7 @@ public class EditCustomerActivity extends AppCompatActivity {
     //the aim of this method is to show the dialog in which
     // the user can choose between taking a selfie
     // or picking an image from the gallery
-    //TODO: Ask the professor if we can use DialogFragment
+
     private void startDialog() {
 
         new ChoosePictureDialogFragment().show(getSupportFragmentManager(), tagDialog);
@@ -204,6 +221,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         editMail.setText(customer.getMail());
         editDescription.setText(customer.getDescription());
         editDeliveryAddress.setText(customer.getDeliveryAddress());
+        editImage.setImageBitmap(Customer.decodeImage(customer.getEncodedImage()));
 
     }
 
@@ -211,6 +229,41 @@ public class EditCustomerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         return ((Customer) intent.getSerializableExtra(tagCustomer));
+
+    }
+
+    private boolean gapsFilled() {
+
+        boolean result = true;
+        if (TextUtils.isEmpty(editName.getText().toString())) {
+
+            result = false;
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingName, Snackbar.LENGTH_SHORT).show();
+
+        }
+
+        if (TextUtils.isEmpty(editMail.getText().toString())) {
+
+            result = false;
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingMail, Snackbar.LENGTH_SHORT).show();
+
+        }
+
+        if (TextUtils.isEmpty(editDescription.getText().toString())) {
+
+            result = false;
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingDescription, Snackbar.LENGTH_SHORT).show();
+
+        }
+
+        if (TextUtils.isEmpty(editDeliveryAddress.getText().toString())) {
+
+            result = false;
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingAddress, Snackbar.LENGTH_SHORT).show();
+
+        }
+
+        return result;
 
     }
 }
