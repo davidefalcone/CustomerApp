@@ -1,0 +1,11 @@
+<resources>
+    <string name="editText">Edit</string>
+    <string name="hintEmail">johndoe@mail.com</string>
+    <string name="hintDescription">Short Description</string>
+    <string name="hintName">Name</string>
+    <string name="app_name">CustomerApp</string>
+    <string name="dialogTitle">Choose from</string>
+    <string name="galleryText">Gallery</string>
+    <string name="cameraText">Camera</string>
+    <string name="hintDeliveryAddress">Delivery Address</string>
+</resources>
