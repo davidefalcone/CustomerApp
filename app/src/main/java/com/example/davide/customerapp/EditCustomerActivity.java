@@ -30,16 +30,24 @@ public class EditCustomerActivity extends AppCompatActivity {
     private EditText editDeliveryAddress;
     private ImageView editImage;
 
-    private String tag;
+    private Customer customer;
+
+    private String tagDialog;
     private final int GALLERY = 0;
     private final int CAMERA = 1;
+
+    private SharedPreferences preferences;
+    private String tagPreferences;
+    private String tagCustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_customer);
 
-        tag = "dialog";
+        tagDialog = "dialog";
+        tagCustomer = "Customer";
+        tagPreferences = "preferences";
 
         //linking view with relative references
         editName = findViewById(R.id.editName);
@@ -49,6 +57,10 @@ public class EditCustomerActivity extends AppCompatActivity {
         editImage = findViewById(R.id.editImage);
 
         setImageview();
+
+        customer = retrieveCustomerData();
+        if(customer != null)
+            setCustomerData(customer);
 
     }
 
@@ -82,6 +94,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         String description = editDescription.getText().toString();
         String deliveryAddress = editDeliveryAddress.getText().toString();
 
+
         Customer customer = Customer.getIstance();
 
         customer.setName(name);
@@ -89,11 +102,11 @@ public class EditCustomerActivity extends AppCompatActivity {
         customer.setDescription(description);
         customer.setDeliveryAddress(deliveryAddress);
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        preferences = getSharedPreferences(tagPreferences, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(customer);
-        editor.putString(json,"");
+        editor.putString(tagCustomer, json);
         editor.commit();
 
     }
@@ -126,7 +139,7 @@ public class EditCustomerActivity extends AppCompatActivity {
     //TODO: Ask the professor if we can use DialogFragment
     private void startDialog() {
 
-        new ChoosePictureDialogFragment().show(getSupportFragmentManager(),tag);
+        new ChoosePictureDialogFragment().show(getSupportFragmentManager(), tagDialog);
 
     }
 
@@ -184,4 +197,22 @@ public class EditCustomerActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    private void setCustomerData(Customer customer) {
+
+        editName.setText(customer.getName());
+        editMail.setText(customer.getMail());
+        editDescription.setText(customer.getDescription());
+        editDeliveryAddress.setText(customer.getDeliveryAddress());
+
+    }
+
+    private Customer retrieveCustomerData() {
+
+        Intent intent = getIntent();
+        return ((Customer) intent.getSerializableExtra(tagCustomer));
+
+    }
 }
+
+

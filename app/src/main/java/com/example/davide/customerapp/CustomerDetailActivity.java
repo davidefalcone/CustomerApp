@@ -21,8 +21,13 @@ public class CustomerDetailActivity extends AppCompatActivity {
     private TextView customerDescription;
     private TextView customerDeliveryAddress;
 
+    private Customer customer;
+
     //this string will be used in managing sharedPreferences
     private String tagCustomer;
+    private String tagPreferences;
+
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,7 @@ public class CustomerDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_detail);
 
         tagCustomer = "Customer";
+        tagPreferences = "preferences";
 
         //linking view with relative references
         customerImage = findViewById(R.id.customerImage);
@@ -38,7 +44,8 @@ public class CustomerDetailActivity extends AppCompatActivity {
         customerDescription = findViewById(R.id.textDescription);
         customerDeliveryAddress = findViewById(R.id.textDeliveryAddress);
 
-        setData();
+        customer = retrieveCustomerData();
+        setCustomerData(customer);
 
 
     }
@@ -51,16 +58,14 @@ public class CustomerDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(this, EditCustomerActivity.class);
-        startActivityForResult(intent, 1);
+
+        goToEditCustomerActivity();
 
         return true;
     }
 
     //this method fulls both imageview and textviews with customer's data
-    private void setData(){
-
-        Customer customer = retrieveData();
+    private void setCustomerData(Customer customer){
 
         customerName.setText(customer.getName());
         customerMail.setText(customer.getMail());
@@ -70,12 +75,21 @@ public class CustomerDetailActivity extends AppCompatActivity {
     }
 
     //this method uses sharedPreference to retrieve the customer object
-    private Customer retrieveData() {
+    private Customer retrieveCustomerData() {
 
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        preferences = getSharedPreferences(tagPreferences, MODE_PRIVATE);
+
         Gson gson = new Gson();
         String json = preferences.getString(tagCustomer, "");
         return gson.fromJson(json, Customer.class);
+
+    }
+
+    private void goToEditCustomerActivity() {
+
+        Intent intent = new Intent(this, EditCustomerActivity.class);
+        intent.putExtra(tagCustomer, customer);
+        startActivityForResult(intent, 1);
 
     }
 }

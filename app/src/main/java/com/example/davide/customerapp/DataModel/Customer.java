@@ -1,6 +1,9 @@
 package com.example.davide.customerapp.DataModel;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
+
     private String name;
     private String mail;
     private String description;
