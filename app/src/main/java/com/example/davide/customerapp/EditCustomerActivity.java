@@ -2,7 +2,6 @@ package com.example.davide.customerapp;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
@@ -24,22 +23,28 @@ import java.io.IOException;
 
 public class EditCustomerActivity extends AppCompatActivity {
 
-    //references
+    //references for views
     private EditText editName;
     private EditText editMail;
     private EditText editDescription;
     private EditText editDeliveryAddress;
     private ImageView editImage;
 
+    //reference for customer
     private Customer customer;
 
+    //some tags
     private String tagDialog;
     private final int GALLERY = 0;
     private final int CAMERA = 1;
+    private String notEmpty;
+    private String empty;
 
+    //data needed for persistence
     private SharedPreferences preferences;
     private String tagPreferences;
     private String tagCustomer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,8 @@ public class EditCustomerActivity extends AppCompatActivity {
         tagDialog = "dialog";
         tagCustomer = "Customer";
         tagPreferences = "preferences";
+        notEmpty = "notempty";
+        empty = "empty";
 
         //linking view with relative references
         editName = findViewById(R.id.editName);
@@ -62,8 +69,13 @@ public class EditCustomerActivity extends AppCompatActivity {
         setImageview();
 
         customer = retrieveCustomerData();
-        if(customer != null)
+        if(customer != null) {
+
             setCustomerData(customer);
+            editImage.setTag(notEmpty);
+
+        }
+
     }
 
     @Override
@@ -133,6 +145,7 @@ public class EditCustomerActivity extends AppCompatActivity {
     private void setImageview() {
 
         editImage.setImageResource(R.drawable.editimage);
+        editImage.setTag(empty);
         editImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,7 +206,7 @@ public class EditCustomerActivity extends AppCompatActivity {
                 Uri contentURI = data.getData();
                 try {
                     editImage.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI));
-                    //editImage.setTag(NO_EMPTY);
+                    editImage.setTag(notEmpty);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -203,7 +216,7 @@ public class EditCustomerActivity extends AppCompatActivity {
 
         } else if (requestCode == CAMERA) {
             editImage.setImageBitmap((Bitmap) data.getExtras().get("data"));
-            //editImage.setTag(NO_EMPTY);
+            editImage.setTag(notEmpty);
         }
     }
 
@@ -215,6 +228,8 @@ public class EditCustomerActivity extends AppCompatActivity {
 
     }
 
+    //this method receives a customer object as parameter and fill all the gaps
+    //of the activity with its data
     private void setCustomerData(Customer customer) {
 
         editName.setText(customer.getName());
@@ -225,6 +240,7 @@ public class EditCustomerActivity extends AppCompatActivity {
 
     }
 
+    //this method gather customer details from DetailActivity and returns a Customer object
     private Customer retrieveCustomerData() {
 
         Intent intent = getIntent();
@@ -262,6 +278,14 @@ public class EditCustomerActivity extends AppCompatActivity {
             Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingAddress, Snackbar.LENGTH_SHORT).show();
 
         }
+
+        if (editImage.getTag().toString() == empty) {
+
+            result = false;
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.messageMissingPhoto, Snackbar.LENGTH_SHORT).show();
+
+        }
+
 
         return result;
 
