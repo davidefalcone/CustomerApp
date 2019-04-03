@@ -1,6 +1,6 @@
 <resources>
     <string name="editText">Edit</string>
-    <string name="hintEmail">johndoe@mail.com</string>
+    <string name="hintEmail">Email</string>
     <string name="hintDescription">Short Description</string>
     <string name="hintName">Name</string>
     <string name="app_name">CustomerApp</string>
@@ -8,9 +8,5 @@
     <string name="galleryText">Gallery</string>
     <string name="cameraText">Camera</string>
     <string name="hintDeliveryAddress">Delivery Address</string>
-    <string name="messageMissingName">Insert a name</string>
-    <string name="messageMissingPhoto">Insert a photo</string>
-    <string name="messageMissingMail">Insert a Mail</string>
-    <string name="messageMissingDescription">Insert a description</string>
-    <string name="messageMissingAddress">Insert an address</string>
+    <string name="messageMissingMultipleData">Some data are missing</string>
 </resources>

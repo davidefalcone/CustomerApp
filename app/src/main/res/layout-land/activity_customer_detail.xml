@@ -4,10 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:paddingHorizontal="16dp"
     android:background="@drawable/background"
+    android:paddingHorizontal="16dp"
     android:layout_height="match_parent">
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -19,16 +18,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/customerImage"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="50dp"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:layout_below="@id/toolbar"
@@ -40,12 +40,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
-            android:layout_below="@id/customerImage"
-            android:layout_centerHorizontal="true"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textAllCaps="true"
-            android:layout_margin="15dp"
-            android:fontFamily="sans-serif-light"
+            android:layout_below="@id/toolbar"
+            android:layout_toRightOf="@id/customerImage"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_alignTop="@id/customerImage"
+            android:layout_alignLeft="@id/mailImage"
+            android:layout_marginTop="30dp"
             android:text="TextView" />
 
         <TextView
@@ -53,8 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
-            android:layout_marginLeft="95dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="45dp"
             android:layout_below="@id/textName"
+            android:layout_toRightOf="@id/mailImage"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:text="TextView" />
 
@@ -63,10 +65,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
-            android:layout_marginLeft="95dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_below="@id/textEmail"
+            android:layout_toRightOf="@id/descriptionImage"
             android:text="TextView" />
 
         <TextView
@@ -74,10 +77,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
-            android:layout_marginLeft="95dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_below="@id/textDescription"
+            android:layout_toRightOf="@id/addressImage"
             android:text="TextView" />
 
         <ImageView
@@ -87,6 +91,7 @@
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:layout_alignTop="@id/textEmail"
+            android:layout_toRightOf="@id/customerImage"
             android:layout_marginLeft="35dp"
             app:srcCompat="@drawable/mail" />
 
@@ -97,7 +102,8 @@
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:layout_alignTop="@id/textDescription"
-            android:layout_marginLeft="35dp"
+            android:layout_toRightOf="@id/customerImage"
+            android:layout_alignLeft="@id/mailImage"
             app:srcCompat="@drawable/description" />
 
         <ImageView
@@ -107,7 +113,8 @@
             android:layout_alignParentStart="false"
             android:layout_alignParentTop="false"
             android:layout_alignTop="@id/textDeliveryAddress"
-            android:layout_marginLeft="35dp"
+            android:layout_alignLeft="@id/mailImage"
+            android:layout_toRightOf="@id/customerImage"
             app:srcCompat="@drawable/location" />
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
