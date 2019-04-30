@@ -15,20 +15,7 @@ public class Customer implements Serializable {
     private String mail;
     private String description;
     private String deliveryAddress;
-    private String encodedImage;
-
-    //singleton class
-    private static Customer istance;
-    private Customer() {
-
-    }
-
-    public static Customer getIstance() {
-        if(istance == null){
-            istance = new Customer();
-        }
-        return istance;
-    }
+    private String ID;
 
     //getters and setters
     public String getName() {
@@ -59,33 +46,15 @@ public class Customer implements Serializable {
         return deliveryAddress;
     }
 
-    public String getEncodedImage() {
-        return encodedImage;
-    }
-
-    public void setEncodedImage(String encodedImage) {
-        this.encodedImage = encodedImage;
-    }
-
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public static Bitmap decodeImage(String encodedImage) {
-
-        byte[] decodedByte = Base64.decode(encodedImage, 0);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-
+    public String getID() {
+        return ID;
     }
 
-    public static String encodeImage(Drawable drawable) {
-
-        Bitmap image = ((BitmapDrawable) drawable).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-        return imageEncoded;
-
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }
